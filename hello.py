@@ -7,6 +7,9 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello():
+    if request.args.get('state') != "test":
+        return render_template('test.html')
+
     if request.args.get('state') != "authenticated":
         return redirect("https://webexapis.com/v1/authorize?client_id=C7d5cbb55341ea8a2b6a9c8d01ac5534175955483f1a7b1fff528878b4e9016b3&response_type=code&redirect_uri=http%3A%2F%2F127.0.0.1%3A5000&scope=meeting%3Arecordings_read%20spark%3Akms&state=authenticated")
     response = requests.post(
